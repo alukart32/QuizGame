@@ -31,3 +31,16 @@ The CSV file will be in a format like below, where the first column is a questio
 2+4,6
 5+2,7
 ```
+
+## Run the game
+
+It is assumed that you already have Go sources. If not, then you can look at the installation on the official website https://go.dev/dl/.
+
+Before starting the game, you need to define the rules in a certain format.
+By default, the rules are set in csv format in the file /assets/game-rules-csv.txt.
+
+To quickly launch the game, go to the cmd directory and run the command:
+
+```
+go run main.go
+```
