@@ -39,8 +39,9 @@ It is assumed that you already have Go sources. If not, then you can look at the
 Before starting the game, you need to define the rules in a certain format.
 By default, the rules are set in csv format in the file /assets/game-rules-csv.txt.
 
-To quickly launch the game, go to the cmd directory and run the command:
+To quickly launch the game, run the following commands:
 
 ```
+cd cmd
 go run main.go
 ```
