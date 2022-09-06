@@ -39,7 +39,6 @@ func (g *quizgame) Run() error {
 	scanner := bufio.NewScanner(os.Stdin)
 	for i, p := range g.Problems {
 		fmt.Printf("Question %d. %s = ", i+1, p.q)
-		fmt.Scan()
 		if scanner.Scan() {
 			line := scanner.Text()
 			if err := scanner.Err(); err != nil {
