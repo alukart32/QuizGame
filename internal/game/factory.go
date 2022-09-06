@@ -3,6 +3,7 @@ package game
 
 import (
 	"fmt"
+	"strings"
 
 	"alukart32.com/quizgame/internal/resource"
 )
@@ -19,20 +20,35 @@ var (
 	csvReader = resource.GetCsvRuleReader(';', '#')
 )
 
-func GetGame(t int) (Game, error) {
+func GetGame(t int, problemsFile string) (Game, error) {
 	fmt.Println("loading game rules ...")
 	switch t {
 	case CsvQuizGame:
-		data, e := csvReader.ReadAll(GAME_RULES_CSV_FILE_PATH)
+		lines, e := csvReader.ReadAll(problemsFile)
 		if e != nil {
 			panic(e)
 		}
 		gameOjct := &quizgame{
-			Questions: data,
-			ExitWord:  "stop",
+			Problems: convertCSVLines(lines),
+			ExitWord: "stop",
 		}
 		return gameOjct, nil
 	default:
 		return nil, fmt.Errorf("not implemented yet")
 	}
+}
+
+func convertCSVLines(lines [][]string) []problem {
+	if len(lines) == 0 {
+		return nil
+	}
+
+	ret := make([]problem, len(lines))
+	for i, line := range lines {
+		ret[i] = problem{
+			q: line[0],
+			a: strings.TrimSpace(line[1]),
+		}
+	}
+	return ret
 }

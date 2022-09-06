@@ -7,7 +7,6 @@ import (
 )
 
 // Implementation of Rule Reader for reading game rules from csv files.
-// CsvRuleReader is a singleton.
 type CsvRuleReader struct {
 	Comma, Comment rune
 }
@@ -24,10 +23,10 @@ func GetCsvRuleReader(comma, comment rune) RuleReader {
 
 // ReadAll reads records from the csv file by url.
 // Csv format: question; answer.
-func (csvReader *CsvRuleReader) ReadAll(url string) (records [][]string, err error) {
-	f, e := os.Open(url)
+func (csvReader *CsvRuleReader) ReadAll(filepath string) (records [][]string, err error) {
+	f, e := os.Open(filepath)
 	if e != nil {
-		return [][]string{}, fmt.Errorf("csv file cannot be opened :: %s", url)
+		return [][]string{}, fmt.Errorf("csv file cannot be opened :: %s", filepath)
 	}
 	defer f.Close()
 
@@ -37,7 +36,7 @@ func (csvReader *CsvRuleReader) ReadAll(url string) (records [][]string, err err
 
 	data, e := r.ReadAll()
 	if e != nil {
-		return [][]string{}, fmt.Errorf("csv file [%s] cannot be parsed :: %s", url, e)
+		return [][]string{}, fmt.Errorf("csv file [%s] cannot be parsed :: %s", filepath, e)
 	}
 	return data, nil
 }
